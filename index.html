@@ -177,7 +177,7 @@ footer strong{color:#eee}
   <footer>
     <div class="footer-mascots"><strong>NEXUS FIEE</strong><span>Left 4 Dead 2 · Zone Mod · Torneo</span></div>
     <div class="footer-mascots"><span>Facebook: NEXUS FIEE · Twitch/Instagram: nexus_fiee</span></div>
-    <div class="footer-mascots"><span id="adminStatus" style="font-size:11px"></span></div>
+    <div class="footer-mascots"><span id="adminStatus" style="font-size:11px"></span><a href="#" id="adminLink" style="color:var(--muted);text-decoration:none;margin-left:10px">Admin</a></div>
   </footer>
 
   <div class="overlay" id="teamOverlay"><div class="modal" id="teamModal"></div></div>
@@ -264,6 +264,7 @@ function safeSet(key, value){
 
 let winners = {};
 let news = DEFAULT_NEWS;
+const ADMIN_PASSWORD = "nexusfiee2026";
 let isAdmin = false;
 let artifactCap = null;
 
@@ -312,9 +313,14 @@ async function publishChange(){
 }
 
 async function initClaude(){
+  if(typeof claude === "undefined"){
+    updateAdminUI();
+    renderBracket();
+    renderNews();
+    return;
+  }
   artifactCap = await claude.use("artifact").catch(()=>null);
-  const userCap = await claude.use("user").catch(()=>null);
-  isAdmin = userCap ? await userCap.canEdit() : false;
+  isAdmin = false;
   updateAdminUI();
   renderBracket();
   renderNews();
@@ -435,6 +441,25 @@ qsa(".tab").forEach(btn=>btn.addEventListener("click",()=>{
   qsa(".section").forEach(s=>s.classList.remove("active")); qs("#"+btn.dataset.section).classList.add("active");
 }));
 qs("#statsFilter").addEventListener("change",e=>renderStats(e.target.value));
+qs("#adminLink").addEventListener("click",(e)=>{
+  e.preventDefault();
+  if(isAdmin){
+    isAdmin = false;
+    updateAdminUI();
+    renderBracket();
+    renderNews();
+    return;
+  }
+  const password = prompt("Contraseña de administrador:");
+  if(password === ADMIN_PASSWORD){
+    isAdmin = true;
+    updateAdminUI();
+    renderBracket();
+    renderNews();
+  }else if(password !== null){
+    alert("Contraseña incorrecta.");
+  }
+});
 qs("#resetBracket").addEventListener("click",()=>{
   qs("#confirmResetOverlay").classList.add("open");
 });
