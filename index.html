@@ -271,6 +271,17 @@ footer strong{color:#eee}
 .center-champion{margin-top:10px;width:100%;max-width:276px}
 @media(max-width:1050px){.bracket{grid-template-columns:minmax(0,1fr) minmax(210px,260px) minmax(0,1fr);gap:8px;padding:14px 8px}.bracket-side{gap:7px}.bracket-round{height:680px;min-height:680px}.bracket-side{min-height:680px}.trophy-art{height:330px}.center-final{left:6%;right:6%}}
 @media(max-width:760px){.bracket{min-width:980px}.bracket-round{height:700px;min-height:700px}.bracket-side{min-height:700px}}
+
+/* BRACKET FIX: right-side rounds mirror the left side */
+.bracket-side{align-items:stretch}
+.bracket-round{height:720px;min-height:720px;display:grid;grid-template-rows:repeat(8,minmax(0,1fr));align-content:stretch}
+.bracket-round h3{z-index:3}
+.bracket-match{align-self:center!important;margin:0!important}
+.slot-logo-fallback{width:30px;height:30px;min-width:30px;display:grid;place-items:center;border-radius:50%;background:radial-gradient(circle at 35% 30%,#5b5b4a,#151a18 62%,#070909);border:1px solid var(--yellow);color:var(--yellow);font-family:"Barlow Condensed",Arial,sans-serif;font-size:11px;font-weight:900;letter-spacing:.3px;box-shadow:inset 0 0 8px #000,0 1px 5px #000}
+.right .slot-logo-fallback{order:2}
+.right .bracket-slot span:not(.slot-logo-fallback){order:1}
+@media(max-width:1050px){.bracket-round{height:680px;min-height:680px}.slot-logo-fallback{width:24px;height:24px;min-width:24px;font-size:9px}}
+@media(max-width:760px){.bracket-round{height:700px;min-height:700px}}
 </style>
 </head>
 <body>
@@ -554,13 +565,19 @@ function getSlotName(round, match, slot){
   return winners[key] || null;
 }
 function renderBracket(){
+  const logoInitials=function(name){
+    const map={"Equipo Alta Tensión":"AT","plantasdeplantasversuszoombies":"PVZ"};
+    return map[name] || String(name||"").split(/\\s+/).slice(0,2).map(function(x){return x[0]||""}).join("").toUpperCase();
+  };
   const makeMatch=function(round,match){
     const a=getSlotName(round,match,0), b=getSlotName(round,match,1), key=round+"_"+match, w=winners[key];
     const slot=function(name){
       const disabled=!name||!isAdmin, picked=w&&w===name, img=flyerFor(name);
-      return '<button class="bracket-slot '+(picked?'picked':'')+'" '+(disabled?'disabled':'')+' data-r="'+round+'" data-m="'+match+'" data-name="'+(name||'')+'">'+(img?'<img class="slot-logo" src="'+img+'" alt="">':'')+'<span>'+ (name||"Por definir") +'</span></button>';
+      const mark=img?'<img class="slot-logo" src="'+img+'" alt="">':'<span class="slot-logo-fallback">'+logoInitials(name)+'</span>';
+      return '<button class="bracket-slot '+(picked?'picked':'')+'" '+(disabled?'disabled':'')+' data-r="'+round+'" data-m="'+match+'" data-name="'+(name||'')+'">'+mark+'<span>'+ (name||"Por definir") +'</span></button>';
     };
-    const start=round===0?(1+match*2):round===1?(1+match*4):1;
+    const local=round===0?(match%4):round===1?(match%2):0;
+    const start=1+local*(round===0?2:round===1?4:8);
     const span=round===0?2:round===1?4:8;
     return '<div class="bracket-match" style="grid-row:'+start+' / span '+span+'">'+slot(a)+'<span class="bracket-vs">VS</span>'+slot(b)+'</div>';
   };
@@ -570,7 +587,8 @@ function renderBracket(){
   const finalA=getSlotName(3,0,0), finalB=getSlotName(3,0,1), finalW=winners['3_0'];
   const finalSide=function(name){
     const picked=finalW&&finalW===name, img=flyerFor(name);
-    return '<button class="final-side '+(picked?'picked':'')+'" '+((!name||!isAdmin)?'disabled':'')+' data-r="3" data-m="0" data-name="'+(name||'')+'">'+(img?'<img class="final-logo-inline" src="'+img+'" alt="">':'')+'<span>'+(name||"Por definir")+'</span></button>';
+    const mark=img?'<img class="final-logo-inline" src="'+img+'" alt="">':'<span class="slot-logo-fallback">'+logoInitials(name)+'</span>';
+    return '<button class="final-side '+(picked?'picked':'')+'" '+((!name||!isAdmin)?'disabled':'')+' data-r="3" data-m="0" data-name="'+(name||'')+'">'+mark+'<span>'+(name||"Por definir")+'</span></button>';
   };
   qs("#bracket").innerHTML=
     '<div class="bracket-side left">'+col("OCTAVOS",0,[0,1,2,3])+col("CUARTOS",1,[0,1])+col("SEMIFINAL",2,[0])+'</div>'+
@@ -580,7 +598,7 @@ function renderBracket(){
         '<div class="center-final"><div class="final-row">'+finalSide(finalA)+'<div class="final-vs">VS</div>'+finalSide(finalB)+'</div></div>'+
       '</div>'+
       '<div class="center-champion">'+(finalW?'<span>🏆 CAMPEÓN</span><b>'+finalW+'</b>':'<span>RESULTADO</span><b>GRAN FINAL</b>')+'</div>'+
-      '<div class="final-admin-hint">'+(isAdmin?'Modo admin: selecciona al ganador de cada cruce.':'Activa “Admin” en el pie para seleccionar ganadores.')+'</div>'+
+      '<div class="final-admin-hint">'+(isAdmin?'Modo admin: selecciona el ganador de cada cruce.':'Activa “Admin” en el pie para seleccionar ganadores.')+'</div>'+
     '</div>'+
     '<div class="bracket-side right">'+col("SEMIFINAL",2,[1])+col("CUARTOS",1,[2,3])+col("OCTAVOS",0,[4,5,6,7])+'</div>';
   qsa(".bracket-slot,.final-side").forEach(function(btn){
