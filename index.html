@@ -246,6 +246,31 @@ footer strong{color:#eee}
 .slot-logo{width:30px;height:30px;object-fit:contain;flex:none;border-radius:50%;background:#050707;border:1px solid #4b4a20;padding:2px;filter:drop-shadow(0 2px 4px #000)}.bracket-vs{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:4;min-width:35px;padding:2px 6px;color:#111;background:var(--yellow);font-family:"Barlow Condensed";font-weight:800;font-size:14px;font-style:italic;text-align:center;clip-path:polygon(5px 0,100% 0,calc(100% - 5px) 100%,0 100%);pointer-events:none}
 .bracket-center{position:relative;z-index:3;display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:0;padding:4px}.center-art{position:relative;width:100%;max-width:300px;aspect-ratio:156/276;border:1px solid #4b4315;border-radius:10px;overflow:hidden;background:#030505;box-shadow:0 0 28px rgba(242,201,0,.14),0 0 70px rgba(223,48,48,.08)}.center-art>img{width:100%;height:100%;display:block;object-fit:cover}.final-slot{position:absolute;top:43.5%;width:39%;height:8.5%;padding:3px 5px;border:2px solid var(--yellow);background:rgba(4,7,7,.94);color:#fff;font-family:"Barlow Condensed";font-size:clamp(9px,1.15vw,14px);font-weight:800;text-transform:uppercase;line-height:.95;cursor:pointer;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.final-slot.left{left:2.5%;text-align:center}.final-slot.right{right:2.5%;text-align:center}.final-slot:disabled{cursor:default;color:#8b9492}.final-slot.picked{color:var(--yellow);box-shadow:0 0 12px rgba(242,201,0,.3)}.final-logo{position:absolute;top:42%;width:28px;height:28px;object-fit:contain;border-radius:50%;z-index:5}.final-logo.left{left:25%}.final-logo.right{right:25%}.center-champion{margin-top:10px;text-align:center;border:1px solid var(--yellow);border-radius:8px;padding:8px 12px;background:#0c110f;min-height:48px;width:100%;max-width:300px}.center-champion span{display:block;color:var(--muted);font-size:9px;letter-spacing:1.5px}.center-champion b{color:var(--yellow);font-family:"Barlow Condensed";font-size:21px;text-transform:uppercase}.final-admin-hint{margin-top:10px;color:#8f9b9a;font-size:10px;text-align:center}
 @media(max-width:1050px){.bracket{grid-template-columns:minmax(0,1fr) minmax(210px,270px) minmax(0,1fr);gap:8px;padding:14px 8px}.bracket-side{gap:7px}.bracket-round{min-height:620px}.bracket-slot{font-size:10px;padding:6px 5px;min-height:42px}.slot-logo{width:24px;height:24px}.final-slot{font-size:9px}}@media(max-width:760px){.bracket{min-width:980px}.bracket-side{gap:8px}.bracket-round{min-height:650px}.center-art{max-width:260px}}
+
+/* BRACKET CENTERING + CLEAN CENTER */
+.bracket{grid-template-columns:minmax(0,1fr) minmax(230px,300px) minmax(0,1fr);gap:12px;align-items:stretch;min-height:780px;padding:18px 12px 26px}
+.bracket-side{display:grid;grid-template-columns:minmax(125px,1.35fr) minmax(105px,1fr) minmax(95px,.78fr);gap:10px;min-width:0;min-height:720px;position:relative;z-index:2}
+.bracket-side.right{grid-template-columns:minmax(95px,.78fr) minmax(105px,1fr) minmax(125px,1.35fr)}
+.bracket-round{position:relative;display:grid;grid-template-rows:repeat(8,minmax(0,1fr));height:720px;min-height:720px;padding-top:30px;min-width:0}
+.bracket-round h3{position:absolute;top:0;left:0;right:0;margin:0;font-size:13px;letter-spacing:1.4px}
+.bracket-match{align-self:center;width:100%;margin:0!important}
+.bracket-slot{min-height:44px}
+.bracket-center{position:relative;z-index:3;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;min-width:0;padding:6px 2px}
+.center-title{font-family:"Barlow Condensed",Arial,sans-serif;font-size:26px;font-weight:800;letter-spacing:3px;color:var(--yellow);text-transform:uppercase;text-align:center;margin:0 0 6px;text-shadow:0 0 14px rgba(242,201,0,.28)}
+.trophy-art{position:relative;width:min(100%,276px);height:360px;border:1px solid #4b4315;border-radius:14px;overflow:hidden;background:#030505;box-shadow:0 0 28px rgba(242,201,0,.14),0 0 70px rgba(223,48,48,.08)}
+.trophy-art>img{width:100%;height:100%;display:block;object-fit:cover;object-position:50% 48%}
+.center-final{position:absolute;left:8%;right:8%;bottom:8%;z-index:5;border:2px solid var(--yellow);background:rgba(4,7,7,.95);border-radius:7px;box-shadow:0 0 18px rgba(242,201,0,.18);overflow:visible}
+.center-final:before{content:"GRAN FINAL";position:absolute;left:50%;top:-13px;transform:translateX(-50%);padding:2px 10px;background:var(--yellow);color:#111;font-family:"Barlow Condensed";font-size:12px;font-weight:800;letter-spacing:1px;clip-path:polygon(6px 0,100% 0,calc(100% - 6px) 100%,0 100%)}
+.center-final .final-row{display:grid;grid-template-columns:1fr 38px 1fr;align-items:stretch}
+.center-final .final-side{display:flex;align-items:center;justify-content:center;gap:5px;min-height:52px;padding:5px 7px;color:#fff;font-family:"Barlow Condensed";font-size:12px;font-weight:800;text-transform:uppercase;line-height:.95;text-align:center}
+.center-final .final-side:first-child{border-right:1px solid #3c3a1b}
+.center-final .final-side:last-child{border-left:1px solid #3c3a1b}
+.center-final .final-vs{display:grid;place-items:center;background:var(--yellow);color:#111;font-family:"Barlow Condensed";font-weight:900;font-style:italic;font-size:15px}
+.center-final .final-side.picked{color:var(--yellow);text-shadow:0 0 9px rgba(242,201,0,.3)}
+.final-logo-inline{width:27px;height:27px;object-fit:contain;border-radius:50%;background:#050707;border:1px solid #4b4a20;padding:2px;flex:none}
+.center-champion{margin-top:10px;width:100%;max-width:276px}
+@media(max-width:1050px){.bracket{grid-template-columns:minmax(0,1fr) minmax(210px,260px) minmax(0,1fr);gap:8px;padding:14px 8px}.bracket-side{gap:7px}.bracket-round{height:680px;min-height:680px}.bracket-side{min-height:680px}.trophy-art{height:330px}.center-final{left:6%;right:6%}}
+@media(max-width:760px){.bracket{min-width:980px}.bracket-round{height:700px;min-height:700px}.bracket-side{min-height:700px}}
 </style>
 </head>
 <body>
@@ -533,24 +558,37 @@ function renderBracket(){
     const a=getSlotName(round,match,0), b=getSlotName(round,match,1), key=round+"_"+match, w=winners[key];
     const slot=function(name){
       const disabled=!name||!isAdmin, picked=w&&w===name, img=flyerFor(name);
-      return '<button class="bracket-slot '+(picked?'picked':'')+'" '+(disabled?'disabled':'')+' data-r="'+round+'" data-m="'+match+'" data-name="'+(name||'')+'">'+(img?'<img class="slot-logo" src="'+img+'" alt="">':'')+'<span>'+ (name||'Por definir') +'</span></button>';
+      return '<button class="bracket-slot '+(picked?'picked':'')+'" '+(disabled?'disabled':'')+' data-r="'+round+'" data-m="'+match+'" data-name="'+(name||'')+'">'+(img?'<img class="slot-logo" src="'+img+'" alt="">':'')+'<span>'+ (name||"Por definir") +'</span></button>';
     };
-    return '<div class="bracket-match">'+slot(a)+'<span class="bracket-vs">VS</span>'+slot(b)+'</div>';
+    const start=round===0?(1+match*2):round===1?(1+match*4):1;
+    const span=round===0?2:round===1?4:8;
+    return '<div class="bracket-match" style="grid-row:'+start+' / span '+span+'">'+slot(a)+'<span class="bracket-vs">VS</span>'+slot(b)+'</div>';
   };
-  const col=function(title,round,matches){ return '<div class="bracket-round"><h3>'+title+'</h3>'+matches.map(function(m){return makeMatch(round,m);}).join('')+'</div>'; };
+  const col=function(title,round,matches){
+    return '<div class="bracket-round"><h3>'+title+'</h3>'+matches.map(function(m){return makeMatch(round,m);}).join('')+'</div>';
+  };
   const finalA=getSlotName(3,0,0), finalB=getSlotName(3,0,1), finalW=winners['3_0'];
-  const finalSlot=function(name,side){ const disabled=!name||!isAdmin,picked=finalW&&finalW===name,img=flyerFor(name); return '<button class="final-slot '+side+' '+(picked?'picked':'')+'" '+(disabled?'disabled':'')+' data-r="3" data-m="0" data-name="'+(name||'')+'">'+(name||'Por definir')+'</button>'+(img?'<img class="final-logo '+side+'" src="'+img+'" alt="">':''); };
-  qs("#bracket").innerHTML='<div class="bracket-side left">'+col('OCTAVOS',0,[0,1,2,3])+col('CUARTOS',1,[0,1])+col('SEMIFINAL',2,[0])+'</div>'
-    +'<div class="bracket-center"><div class="center-art"><img src="assets/bracket-center.jpg" alt="NEXUS FIEE - Gran Final">'+finalSlot(finalA,'left')+finalSlot(finalB,'right')+'</div>'
-    +'<div class="center-champion">'+(finalW?'<span>🏆 CAMPEÓN</span><b>'+finalW+'</b>':'<span>GRAN FINAL</span><b>VS</b>')+'</div>'
-    +'<div class="final-admin-hint">'+(isAdmin?'Modo admin: selecciona al ganador de cada cruce.':'Activa “Admin” en el pie para seleccionar ganadores.')+'</div></div>'
-    +'<div class="bracket-side right">'+col('SEMIFINAL',2,[1])+col('CUARTOS',1,[2,3])+col('OCTAVOS',0,[4,5,6,7])+'</div>';
-  qsa(".bracket-slot,.final-slot").forEach(function(btn){
+  const finalSide=function(name){
+    const picked=finalW&&finalW===name, img=flyerFor(name);
+    return '<button class="final-side '+(picked?'picked':'')+'" '+((!name||!isAdmin)?'disabled':'')+' data-r="3" data-m="0" data-name="'+(name||'')+'">'+(img?'<img class="final-logo-inline" src="'+img+'" alt="">':'')+'<span>'+(name||"Por definir")+'</span></button>';
+  };
+  qs("#bracket").innerHTML=
+    '<div class="bracket-side left">'+col("OCTAVOS",0,[0,1,2,3])+col("CUARTOS",1,[0,1])+col("SEMIFINAL",2,[0])+'</div>'+
+    '<div class="bracket-center">'+
+      '<div class="center-title">NEXUS FIEE</div>'+
+      '<div class="trophy-art"><img src="assets/bracket-center.jpg" alt="Copa NEXUS FIEE">'+
+        '<div class="center-final"><div class="final-row">'+finalSide(finalA)+'<div class="final-vs">VS</div>'+finalSide(finalB)+'</div></div>'+
+      '</div>'+
+      '<div class="center-champion">'+(finalW?'<span>🏆 CAMPEÓN</span><b>'+finalW+'</b>':'<span>RESULTADO</span><b>GRAN FINAL</b>')+'</div>'+
+      '<div class="final-admin-hint">'+(isAdmin?'Modo admin: selecciona al ganador de cada cruce.':'Activa “Admin” en el pie para seleccionar ganadores.')+'</div>'+
+    '</div>'+
+    '<div class="bracket-side right">'+col("SEMIFINAL",2,[1])+col("CUARTOS",1,[2,3])+col("OCTAVOS",0,[4,5,6,7])+'</div>';
+  qsa(".bracket-slot,.final-side").forEach(function(btn){
     if(btn.disabled) return;
     btn.addEventListener("click",function(){
       const rr=+btn.dataset.r, mm=+btn.dataset.m, name=btn.dataset.name;
       winners[rr+"_"+mm]=name;
-      for(let nr=rr+1;nr<4;nr++) Object.keys(winners).forEach(function(k){ const kr=+k.split('_')[0]; if(kr===nr) delete winners[k]; });
+      for(let nr=rr+1;nr<4;nr++) Object.keys(winners).forEach(function(k){ const kr=+k.split("_")[0]; if(kr===nr) delete winners[k]; });
       renderBracket(); publishChange();
     });
   });
