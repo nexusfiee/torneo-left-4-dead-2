@@ -604,9 +604,7 @@ function renderBracket(){
     '<div class="bracket-side left">'+col("OCTAVOS",0,[0,1,2,3])+col("CUARTOS",1,[0,1])+col("SEMIFINAL",2,[0])+'</div>'+
     '<div class="bracket-center">'+
       '<div class="center-title">NEXUS FIEE</div>'+
-      '<div class="trophy-art"><img src="assets/bracket-center.jpg" alt="Trofeo NEXUS FIEE">'+
-        '<div class="center-final"><div class="final-row">'+finalSide(finalA)+'<div class="final-vs">VS</div>'+finalSide(finalB)+'</div></div>'+
-      '</div>'+
+      '<div class="center-final"><div class="final-row">'+finalSide(finalA)+'<div class="final-vs">VS</div>'+finalSide(finalB)+'</div></div>'+
       '<div class="center-champion">'+(finalW?'<span>🏆 CAMPEÓN</span><b>'+finalW+'</b>':'<span>RESULTADO</span><b>GRAN FINAL</b>')+'</div>'+
       '<div class="final-admin-hint">'+(isAdmin?'Modo admin: selecciona el ganador de cada cruce.':'Activa “Admin” en el pie para seleccionar ganadores.')+'</div>'+
     '</div>'+
@@ -699,3 +697,8 @@ renderTeams(); renderFilter(); renderStats(); renderBracket(); renderNews(); upd
 </script>
 </body>
 </html>
+
+<style>
+/* Centro sin imagen: solo la gran final */
+.bracket-center>.center-final{position:relative;left:auto;right:auto;bottom:auto;width:100%;max-width:310px;margin:22px auto 0}
+</style>
