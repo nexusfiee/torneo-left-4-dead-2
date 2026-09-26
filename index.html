@@ -233,6 +233,19 @@ footer strong{color:#eee}
 .modal .actions button.primary{background:var(--yellow);color:#111;border-color:var(--yellow)}
 
 @media(max-width:560px){.tabs{grid-template-columns:1fr 1fr}}
+
+/* BRACKET REDESIGN */
+.bracket{display:grid;grid-template-columns:minmax(0,1fr) minmax(250px,330px) minmax(0,1fr);gap:14px;align-items:stretch;overflow:hidden;padding:20px 14px 28px;background:radial-gradient(circle at 50% 45%,rgba(242,201,0,.14),transparent 23%),radial-gradient(circle at 50% 55%,rgba(223,48,48,.13),transparent 36%),linear-gradient(135deg,#050909,#0a1112 48%,#050909);border:1px solid #2a3433;border-radius:18px;position:relative;box-shadow:inset 0 0 70px #000,0 18px 45px #0008}
+.bracket:before,.bracket:after{content:"";position:absolute;inset:0;pointer-events:none}.bracket:before{background:linear-gradient(135deg,transparent 35%,rgba(223,48,48,.07) 48%,transparent 57%)}.bracket:after{background:linear-gradient(35deg,transparent 35%,rgba(242,201,0,.07) 48%,transparent 57%)}
+.bracket-side{display:grid;grid-template-columns:minmax(130px,1.35fr) minmax(110px,1fr) minmax(100px,.78fr);gap:12px;min-width:0;position:relative;z-index:2}.bracket-side.right{grid-template-columns:minmax(100px,.78fr) minmax(110px,1fr) minmax(130px,1.35fr)}
+.bracket-round{display:flex;flex-direction:column;justify-content:space-around;min-width:0;min-height:690px}.bracket-round h3{font-size:13px;letter-spacing:1.4px;color:var(--yellow);text-align:center;text-shadow:0 0 12px rgba(242,201,0,.25);margin:0 0 8px}
+.bracket-match{position:relative;border:2px solid var(--yellow);background:linear-gradient(135deg,#050909,#11191a);border-radius:4px;overflow:visible;box-shadow:0 0 0 1px #000,0 0 14px rgba(242,201,0,.08);clip-path:polygon(9px 0,100% 0,100% calc(100% - 9px),calc(100% - 9px) 100%,0 100%,0 9px)}
+.bracket-match:after{content:"";position:absolute;top:50%;width:18px;height:2px;background:var(--yellow);box-shadow:0 0 7px rgba(242,201,0,.5)}.bracket-side.left .bracket-round:not(:last-child) .bracket-match:after{right:-20px}.bracket-side.right .bracket-round:not(:last-child) .bracket-match:after{left:-20px}
+.bracket-side.left .bracket-round:nth-child(2) .bracket-match:before,.bracket-side.left .bracket-round:nth-child(3) .bracket-match:before{content:"";position:absolute;right:-31px;top:50%;width:31px;height:70%;border-right:2px solid var(--yellow);border-top:2px solid var(--yellow);border-bottom:2px solid var(--yellow);transform:translateY(-50%);opacity:.9}.bracket-side.right .bracket-round:nth-child(2) .bracket-match:before,.bracket-side.right .bracket-round:nth-child(3) .bracket-match:before{content:"";position:absolute;left:-31px;top:50%;width:31px;height:70%;border-left:2px solid var(--yellow);border-top:2px solid var(--yellow);border-bottom:2px solid var(--yellow);transform:translateY(-50%);opacity:.9}
+.bracket-slot{display:flex;align-items:center;justify-content:flex-start;gap:7px;min-height:45px;width:100%;padding:7px 8px;border:0;background:linear-gradient(90deg,#080d0e,#111a1b);color:#f1f2ed;cursor:pointer;font-family:"Barlow Condensed",Arial,sans-serif;font-weight:700;font-size:12px;line-height:1.05;text-transform:uppercase;letter-spacing:.3px;text-align:left;transition:.18s ease}.right .bracket-slot{justify-content:flex-end;text-align:right}.bracket-slot:first-child{border-bottom:1px solid #3c3a1b}.bracket-slot:hover:not(:disabled){background:#171d1a;color:#fff;transform:translateX(2px)}.right .bracket-slot:hover:not(:disabled){transform:translateX(-2px)}.bracket-slot:disabled{cursor:default;color:#8b9492}.bracket-slot.picked{color:var(--yellow);font-weight:800;text-shadow:0 0 9px rgba(242,201,0,.3)}
+.slot-logo{width:30px;height:30px;object-fit:contain;flex:none;border-radius:50%;background:#050707;border:1px solid #4b4a20;padding:2px;filter:drop-shadow(0 2px 4px #000)}.bracket-vs{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:4;min-width:35px;padding:2px 6px;color:#111;background:var(--yellow);font-family:"Barlow Condensed";font-weight:800;font-size:14px;font-style:italic;text-align:center;clip-path:polygon(5px 0,100% 0,calc(100% - 5px) 100%,0 100%);pointer-events:none}
+.bracket-center{position:relative;z-index:3;display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:0;padding:4px}.center-art{position:relative;width:100%;max-width:300px;aspect-ratio:156/276;border:1px solid #4b4315;border-radius:10px;overflow:hidden;background:#030505;box-shadow:0 0 28px rgba(242,201,0,.14),0 0 70px rgba(223,48,48,.08)}.center-art>img{width:100%;height:100%;display:block;object-fit:cover}.final-slot{position:absolute;top:43.5%;width:39%;height:8.5%;padding:3px 5px;border:2px solid var(--yellow);background:rgba(4,7,7,.94);color:#fff;font-family:"Barlow Condensed";font-size:clamp(9px,1.15vw,14px);font-weight:800;text-transform:uppercase;line-height:.95;cursor:pointer;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.final-slot.left{left:2.5%;text-align:center}.final-slot.right{right:2.5%;text-align:center}.final-slot:disabled{cursor:default;color:#8b9492}.final-slot.picked{color:var(--yellow);box-shadow:0 0 12px rgba(242,201,0,.3)}.final-logo{position:absolute;top:42%;width:28px;height:28px;object-fit:contain;border-radius:50%;z-index:5}.final-logo.left{left:25%}.final-logo.right{right:25%}.center-champion{margin-top:10px;text-align:center;border:1px solid var(--yellow);border-radius:8px;padding:8px 12px;background:#0c110f;min-height:48px;width:100%;max-width:300px}.center-champion span{display:block;color:var(--muted);font-size:9px;letter-spacing:1.5px}.center-champion b{color:var(--yellow);font-family:"Barlow Condensed";font-size:21px;text-transform:uppercase}.final-admin-hint{margin-top:10px;color:#8f9b9a;font-size:10px;text-align:center}
+@media(max-width:1050px){.bracket{grid-template-columns:minmax(0,1fr) minmax(210px,270px) minmax(0,1fr);gap:8px;padding:14px 8px}.bracket-side{gap:7px}.bracket-round{min-height:620px}.bracket-slot{font-size:10px;padding:6px 5px;min-height:42px}.slot-logo{width:24px;height:24px}.final-slot{font-size:9px}}@media(max-width:760px){.bracket{min-width:980px}.bracket-side{gap:8px}.bracket-round{min-height:650px}.center-art{max-width:260px}}
 </style>
 </head>
 <body>
@@ -457,7 +470,7 @@ async function initClaude(){
   renderNews();
 }
 
-function flyerFor(name){ return FLYERS[name] || null; }
+function flyerFor(name){ const key=String(name||"").trim().toLowerCase(); if(FLYERS[name]) return FLYERS[name]; const found=Object.keys(FLYERS).find(k=>k.trim().toLowerCase()===key); return found ? FLYERS[found] : null; }
 function renderTeams(){
   qs("#teamsGrid").innerHTML = TEAMS.map((t,i)=>{
     const img = flyerFor(t[0]);
@@ -516,43 +529,31 @@ function getSlotName(round, match, slot){
   return winners[key] || null;
 }
 function renderBracket(){
-  const sizes=[8,4,2,1];
-  qs("#bracket").innerHTML = sizes.map((count, r)=>{
-    let matches = "";
-    for(let m=0;m<count;m++){
-      const a = getSlotName(r,m,0), b = getSlotName(r,m,1);
-      const key = `${r}_${m}`;
-      const w = winners[key];
-      const slot = (name, isA) => {
-        const disabled = !name || !isAdmin;
-        const picked = w && w===name;
-        return `<button class="slot ${picked?'picked':''}" ${disabled?'disabled':''} data-r="${r}" data-m="${m}" data-name="${name||''}">${name||'Por definir'}</button>`;
-      };
-      matches += `<div class="match">${slot(a,true)}<span class="vs-label">VS</span>${slot(b,false)}</div>`;
-    }
-    return `<div class="round"><h3>${ROUND_NAMES[r]}</h3>${matches}</div>`;
-  }).join("");
-
-  qsa(".slot").forEach(btn=>{
+  const makeMatch=function(round,match){
+    const a=getSlotName(round,match,0), b=getSlotName(round,match,1), key=round+"_"+match, w=winners[key];
+    const slot=function(name){
+      const disabled=!name||!isAdmin, picked=w&&w===name, img=flyerFor(name);
+      return '<button class="bracket-slot '+(picked?'picked':'')+'" '+(disabled?'disabled':'')+' data-r="'+round+'" data-m="'+match+'" data-name="'+(name||'')+'">'+(img?'<img class="slot-logo" src="'+img+'" alt="">':'')+'<span>'+ (name||'Por definir') +'</span></button>';
+    };
+    return '<div class="bracket-match">'+slot(a)+'<span class="bracket-vs">VS</span>'+slot(b)+'</div>';
+  };
+  const col=function(title,round,matches){ return '<div class="bracket-round"><h3>'+title+'</h3>'+matches.map(function(m){return makeMatch(round,m);}).join('')+'</div>'; };
+  const finalA=getSlotName(3,0,0), finalB=getSlotName(3,0,1), finalW=winners['3_0'];
+  const finalSlot=function(name,side){ const disabled=!name||!isAdmin,picked=finalW&&finalW===name,img=flyerFor(name); return '<button class="final-slot '+side+' '+(picked?'picked':'')+'" '+(disabled?'disabled':'')+' data-r="3" data-m="0" data-name="'+(name||'')+'">'+(name||'Por definir')+'</button>'+(img?'<img class="final-logo '+side+'" src="'+img+'" alt="">':''); };
+  qs("#bracket").innerHTML='<div class="bracket-side left">'+col('OCTAVOS',0,[0,1,2,3])+col('CUARTOS',1,[0,1])+col('SEMIFINAL',2,[0])+'</div>'
+    +'<div class="bracket-center"><div class="center-art"><img src="assets/bracket-center.jpg" alt="NEXUS FIEE - Gran Final">'+finalSlot(finalA,'left')+finalSlot(finalB,'right')+'</div>'
+    +'<div class="center-champion">'+(finalW?'<span>🏆 CAMPEÓN</span><b>'+finalW+'</b>':'<span>GRAN FINAL</span><b>VS</b>')+'</div>'
+    +'<div class="final-admin-hint">'+(isAdmin?'Modo admin: selecciona al ganador de cada cruce.':'Activa “Admin” en el pie para seleccionar ganadores.')+'</div></div>'
+    +'<div class="bracket-side right">'+col('SEMIFINAL',2,[1])+col('CUARTOS',1,[2,3])+col('OCTAVOS',0,[4,5,6,7])+'</div>';
+  qsa(".bracket-slot,.final-slot").forEach(function(btn){
     if(btn.disabled) return;
-    btn.addEventListener("click",()=>{
-      const r=+btn.dataset.r, m=+btn.dataset.m, name=btn.dataset.name;
-      winners[`${r}_${m}`] = name;
-      // clear downstream picks that depended on this slot
-      for(let nr=r+1; nr<4; nr++){
-        Object.keys(winners).forEach(k=>{
-          const [kr] = k.split("_").map(Number);
-          if(kr===nr) delete winners[k];
-        });
-      }
-      renderBracket();
-      publishChange();
+    btn.addEventListener("click",function(){
+      const rr=+btn.dataset.r, mm=+btn.dataset.m, name=btn.dataset.name;
+      winners[rr+"_"+mm]=name;
+      for(let nr=rr+1;nr<4;nr++) Object.keys(winners).forEach(function(k){ const kr=+k.split('_')[0]; if(kr===nr) delete winners[k]; });
+      renderBracket(); publishChange();
     });
   });
-
-  const champion = winners["3_0"];
-  qs("#championBanner").innerHTML = champion
-    ? `<div class="champion-banner">🏆 CAMPEÓN <br><b>${champion}</b></div>` : "";
 }
 
 function renderNews(){
