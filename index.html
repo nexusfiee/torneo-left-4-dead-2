@@ -66,6 +66,23 @@ th,td{padding:11px 13px;text-align:left;border-bottom:1px solid #1b292a;font-siz
 th{color:var(--muted);font-size:10px;text-transform:uppercase}
 tr:last-child td{border-bottom:0}
 .muted{color:var(--muted);font-size:13px}
+
+.match-stats-live{margin-top:18px;border:1px solid var(--line);border-radius:14px;background:linear-gradient(145deg,#0d1718,#081011);overflow:hidden;box-shadow:inset 0 0 35px #0008}
+.match-stats-head{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:16px 18px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.match-stats-head h3{margin:2px 0 0;font-size:22px}
+.match-result{text-align:right}.match-result span{display:block;color:var(--yellow);font-size:10px;font-weight:800;letter-spacing:1.5px}.match-result b{font-family:"Barlow Condensed";font-size:30px}
+.match-teams-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:14px}
+.match-team-card{border:1px solid #253132;border-radius:11px;padding:14px;background:#0b1415}
+.match-team-card.win{border-color:#8f7b00;box-shadow:0 0 18px rgba(242,201,0,.08)}
+.match-team-card h4{margin:0;color:#eee;font-size:16px}.match-team-card .score{font-family:"Barlow Condensed";font-size:38px;color:var(--yellow);line-height:1}.match-team-card .result{font-size:10px;text-transform:uppercase;color:var(--muted);margin-top:3px}
+.match-players{margin-top:10px;color:#cfd6d3;font-size:11px;line-height:1.6}
+.player-stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:0 14px 14px}
+.player-stat{border:1px solid #253132;border-radius:10px;padding:11px;background:#091213}.player-stat strong{display:block;color:#eee;font-size:13px}.player-stat span{display:block;color:var(--muted);font-size:10px;margin-top:3px}.player-stat b{color:var(--yellow)}
+.match-highlights{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:0 14px 14px}
+.match-highlight{border-top:1px solid var(--line);padding-top:10px}.match-highlight span{display:block;color:var(--muted);font-size:9px;text-transform:uppercase;letter-spacing:1px}.match-highlight b{display:block;margin-top:3px;font-size:12px}
+@media(max-width:760px){.match-teams-grid,.player-stats-grid,.match-highlights{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.player-stats-grid,.match-highlights{grid-template-columns:1fr}.match-result{text-align:left}}
+
 .bracket{
   display:grid;
   grid-template-columns:minmax(190px,1fr) minmax(150px,.72fr) minmax(150px,.72fr) minmax(190px,1fr);
@@ -342,6 +359,41 @@ footer strong{color:#eee}
           <thead><tr><th>Equipo</th><th>PJ</th><th>PG</th><th>PP</th><th>Especiales elim.</th><th>Score</th><th>Dmg Tank</th><th>Fuego amigo</th><th>Daño total</th><th>Win rate</th></tr></thead>
           <tbody id="statsTable"></tbody>
         </table>
+      </div>
+
+      <div class="match-stats-live">
+        <div class="match-stats-head">
+          <div><p class="eyebrow">ÚLTIMA PARTIDA REGISTRADA</p><h3>RAGEADORES vs Arashi</h3></div>
+          <div class="match-result"><span>RESULTADO FINAL</span><b>503 — 2248</b></div>
+        </div>
+
+        <div class="match-teams-grid">
+          <div class="match-team-card">
+            <h4>RAGEADORES</h4>
+            <div class="score">503</div>
+            <div class="result">Derrota</div>
+            <div class="match-players">ABUSAMADRES · JCARLS · alvarofvo123 · Spurx.7</div>
+          </div>
+          <div class="match-team-card win">
+            <h4>Arashi</h4>
+            <div class="score">2248</div>
+            <div class="result">Victoria</div>
+            <div class="match-players">DarpA · M J:) · I'm Bubbal... · Alvaricocque</div>
+          </div>
+        </div>
+
+        <div class="player-stats-grid">
+          <div class="player-stat"><strong>Spurx.7</strong><span>Daño</span><b>1913 dmg · 51%</b></div>
+          <div class="player-stat"><strong>Spurx.7</strong><span>Especiales</span><b>6 kills · 42%</b></div>
+          <div class="player-stat"><strong>Spurx.7</strong><span>Daño común</span><b>51 · 35%</b></div>
+          <div class="player-stat"><strong>Spurx.7</strong><span>Fuego amigo</span><b>6 · 50%</b></div>
+        </div>
+
+        <div class="match-highlights">
+          <div class="match-highlight"><span>MVP S1</span><b>Spurx.7 — 1913 dmg, 6 kills</b></div>
+          <div class="match-highlight"><span>MVP C1</span><b>Spurx.7 — 51 daño común</b></div>
+          <div class="match-highlight"><span>Bonus</span><b>Ronda 1: 180/1320 · Ronda 2: 0/1320 (wiped out)</b></div>
+        </div>
       </div>
     </section>
 
