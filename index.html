@@ -347,16 +347,12 @@ footer strong{color:#eee}
       <div class="stats-cards">
         <div class="stat-box"><span>Partidas</span><strong id="totalGames">0</strong></div>
         <div class="stat-box"><span>Victorias</span><strong id="totalWins">0</strong></div>
-        <div class="stat-box"><span>Especiales eliminados</span><strong id="totalEspeciales">0</strong></div>
-        <div class="stat-box"><span>Puntaje global</span><strong id="totalScore">0</strong></div>
-        <div class="stat-box"><span>Daño al Tank</span><strong id="totalDmgTank">0</strong></div>
-        <div class="stat-box"><span>Fuego amigo</span><strong id="totalFF">0</strong></div>
-        <div class="stat-box"><span>Daño total</span><strong id="totalDanio">0</strong></div>
+        <div class="stat-box"><span>Puntaje total</span><strong id="totalScore">0</strong></div>
         <div class="stat-box"><span>Win rate</span><strong id="avgWinrate">0%</strong></div>
       </div>
       <div class="table-wrap">
         <table>
-          <thead><tr><th>Equipo</th><th>PJ</th><th>PG</th><th>PP</th><th>Especiales elim.</th><th>Score</th><th>Dmg Tank</th><th>Fuego amigo</th><th>Daño total</th><th>Win rate</th></tr></thead>
+          <thead><tr><th>Equipo</th><th>PJ</th><th>PG</th><th>PP</th><th>Score</th><th>Win rate</th></tr></thead>
           <tbody id="statsTable"></tbody>
         </table>
       </div>
@@ -610,13 +606,14 @@ function openTeam(i){
 
 function renderStats(filter="all"){
   const rows = TEAMS.filter(t=>filter==="all"||t[0]===filter);
-  qs("#statsTable").innerHTML = rows.map(t=>`<tr><td>${t[0]}</td><td>${t[2]}</td><td>${t[3]}</td><td>${t[4]}</td><td>${t[5]}</td><td>${t[6]}</td><td>${t[7]}</td><td>${t[8]}</td><td>${(+t[9]).toLocaleString("es-PE")}</td><td>${t[10]}</td></tr>`).join("");
-  const games=rows.reduce((a,t)=>a+ +t[2],0), wins=rows.reduce((a,t)=>a+ +t[3],0);
-  const especiales=rows.reduce((a,t)=>a+ +t[5],0), score=rows.reduce((a,t)=>a+ +t[6],0), dmgTank=rows.reduce((a,t)=>a+ +t[7],0), ff=rows.reduce((a,t)=>a+ +t[8],0), danio=rows.reduce((a,t)=>a+ +t[9],0);
-  qs("#totalGames").textContent=games; qs("#totalWins").textContent=wins;
-  qs("#totalEspeciales").textContent=especiales; qs("#totalScore").textContent=score;
-  qs("#totalDmgTank").textContent=dmgTank; qs("#totalFF").textContent=ff;
-  qs("#totalDanio").textContent=danio.toLocaleString("es-PE");
+  qs("#statsTable").innerHTML = rows.map(t=>`<tr><td>${t[0]}</td><td>${t[2]}</td><td>${t[3]}</td><td>${t[4]}</td><td>${(+t[6]).toLocaleString("es-PE")}</td><td>${t[10]}</td></tr>`).join("");
+  const teamGames=rows.reduce((a,t)=>a+ +t[2],0);
+  const games=filter==="all" ? Math.round(teamGames/2) : teamGames;
+  const wins=rows.reduce((a,t)=>a+ +t[3],0);
+  const score=rows.reduce((a,t)=>a+ +t[6],0);
+  qs("#totalGames").textContent=games;
+  qs("#totalWins").textContent=wins;
+  qs("#totalScore").textContent=score.toLocaleString("es-PE");
   qs("#avgWinrate").textContent=(games?Math.round(wins/games*100):0)+"%";
 }
 function renderFilter(){
