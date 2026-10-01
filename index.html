@@ -463,8 +463,8 @@ const TEAMS = [
   ["Los Downyardigans","LD","1","1","0","0","1395","0","0","0","100%"],
   ["Fracasados","FR","1","0","1","0","1000","0","0","0","0%"],
   ["3 Burros y conmigo 4","3B","1","1","0","0","1871","0","0","0","100%"],
-  ["Bloodbath","BB","0","0","0","0","0","0","0","0","0%"],
-  ["Nakano Sisters","NA","0","0","0","0","0","0","0","0","0%"],
+  ["Bloodbath","BB","?","?","?","?","?","?","?","?","?"],
+  ["Nakano Sisters","NA","?","?","?","?","?","?","?","?","?"],
   ["Los Camotitos","LC","1","1","0","0","3349","0","0","0","100%"],
   ["Tele4Burros","T4","1","0","1","0","634","0","0","0","0%"]
 ]
@@ -609,11 +609,12 @@ function openTeam(i){
 
 function renderStats(filter="all"){
   const rows = TEAMS.filter(t=>filter==="all"||t[0]===filter);
-  qs("#statsTable").innerHTML = rows.map(t=>`<tr><td>${t[0]}</td><td>${t[2]}</td><td>${t[3]}</td><td>${t[4]}</td><td>${(+t[6]).toLocaleString("es-PE")}</td><td>${t[10]}</td></tr>`).join("");
-  const teamGames=rows.reduce((a,t)=>a+ +t[2],0);
+  qs("#statsTable").innerHTML = rows.map(t=>`<tr><td>${t[0]}</td><td>${t[2]}</td><td>${t[3]}</td><td>${t[4]}</td><td>${t[6] === "?" ? "?" : (+t[6]).toLocaleString("es-PE")}</td><td>${t[10]}</td></tr>`).join("");
+  const knownRows=rows.filter(t=>t[2] !== "?");
+  const teamGames=knownRows.reduce((a,t)=>a+ +t[2],0);
   const games=filter==="all" ? Math.round(teamGames/2) : teamGames;
-  const wins=rows.reduce((a,t)=>a+ +t[3],0);
-  const score=rows.reduce((a,t)=>a+ +t[6],0);
+  const wins=knownRows.reduce((a,t)=>a+ +t[3],0);
+  const score=knownRows.reduce((a,t)=>a+ +t[6],0);
   qs("#totalGames").textContent=games;
   qs("#totalWins").textContent=wins;
   qs("#totalScore").textContent=score.toLocaleString("es-PE");
