@@ -508,6 +508,9 @@ function safeSet(key, value){
 
 let winners = {};
 let news = DEFAULT_NEWS;
+const AUTOSAVE_KEY = "nexus_admin_autosave_v1";
+let autosaveTimer = null;
+let saveState = "Guardado automático activo";
 const ADMIN_PASSWORD = "nexusfiee2026";
 let isAdmin = false;
 let artifactCap = null;
@@ -519,13 +522,18 @@ let artifactCap = null;
     const seed = JSON.parse(el.textContent || "{}");
     if(seed.winners) winners = seed.winners;
     if(seed.news) news = seed.news.filter(n => n && n.img);
+    try{
+      const saved = JSON.parse(localStorage.getItem(AUTOSAVE_KEY) || "null");
+      if(saved && saved.winners) winners = saved.winners;
+      if(saved && Array.isArray(saved.news)) news = saved.news.filter(n => n && n.img);
+    }catch(e){}
   }catch(e){}
 })();
 
 function updateAdminUI(){
   qs("#resetBracket").style.display = isAdmin ? "" : "none";
   qs("#addNewsBtn").style.display = isAdmin ? "" : "none";
-  qs("#adminStatus").textContent = isAdmin ? "🔓 Modo administrador" : "";
+  qs("#adminStatus").textContent = isAdmin ? "🔓 Modo administrador · 💾 Guardado automático" : "";
 }
 
 function buildPublishHtml(){
@@ -543,17 +551,27 @@ function buildPublishHtml(){
 
 async function publishChange(){
   if(!isAdmin) return;
-  if(!artifactCap){ alert("La publicación no está disponible en esta vista todavía. Intenta de nuevo en unos segundos."); return; }
+  try{
+    localStorage.setItem(AUTOSAVE_KEY, JSON.stringify({winners, news}));
+    saveState = "Guardado automático: guardado localmente";
+  }catch(e){
+    saveState = "No se pudo guardar localmente";
+  }
+  if(!artifactCap) return;
   try{
     await artifactCap.publish(buildPublishHtml());
+    saveState = "Guardado automático: publicado";
   }catch(e){
     if(e && (e.code==="not_writer" || e.code==="not_granted")){
+      saveState = "Guardado local · publicación no autorizada";
       isAdmin = false; updateAdminUI(); renderBracket(); renderNews();
-      alert("No tienes permisos para publicar cambios en este sitio.");
-    } else if(e && e.code!=="conflict"){
-      alert("No se pudo publicar el cambio. Inténtalo de nuevo.");
+    } else if(e && e.code==="conflict"){
+      saveState = "Guardado local · publicación pendiente";
+    } else {
+      saveState = "Guardado local · publicación pendiente";
     }
   }
+  updateAdminUI();
 }
 
 async function initClaude(){
