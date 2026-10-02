@@ -528,7 +528,7 @@ let artifactCap = null;
     const seed = JSON.parse(el.textContent || "{}");
     if(seed.winners) winners = seed.winners;
     if(seed.news) news = seed.news.filter(n => n && n.img);
-    const localDraft = safeGet("nexus_admin_autosave_v1", null);
+    const localDraft = safeGet("nexus_admin_autosave_v2", null);
     if(localDraft){
       if(localDraft.winners && typeof localDraft.winners === "object") winners = localDraft.winners;
       if(Array.isArray(localDraft.news)) news = localDraft.news.filter(n => n && n.img);
@@ -557,7 +557,7 @@ function buildPublishHtml(){
 
 function publishChange(){
   if(!isAdmin) return;
-  safeSet("nexus_admin_autosave_v1",{winners,news});
+  safeSet("nexus_admin_autosave_v2",{winners,news});
   const status=qs("#adminStatus");
   if(status) status.textContent="🔓 Modo administrador · 💾 Guardado automático";
 }
