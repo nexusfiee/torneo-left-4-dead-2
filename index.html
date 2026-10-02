@@ -528,13 +528,18 @@ let artifactCap = null;
     const seed = JSON.parse(el.textContent || "{}");
     if(seed.winners) winners = seed.winners;
     if(seed.news) news = seed.news.filter(n => n && n.img);
+    const localDraft = safeGet("nexus_admin_autosave_v1", null);
+    if(localDraft){
+      if(localDraft.winners && typeof localDraft.winners === "object") winners = localDraft.winners;
+      if(Array.isArray(localDraft.news)) news = localDraft.news.filter(n => n && n.img);
+    }
   }catch(e){}
 })();
 
 function updateAdminUI(){
   qs("#resetBracket").style.display = isAdmin ? "" : "none";
   qs("#addNewsBtn").style.display = isAdmin ? "" : "none";
-  qs("#adminStatus").textContent = isAdmin ? "🔓 Modo administrador" : "";
+  qs("#adminStatus").textContent = isAdmin ? "🔓 Modo administrador · 💾 Guardado automático" : "";
 }
 
 function buildPublishHtml(){
@@ -550,19 +555,11 @@ function buildPublishHtml(){
   return "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
 }
 
-async function publishChange(){
+function publishChange(){
   if(!isAdmin) return;
-  if(!artifactCap){ alert("La publicación no está disponible en esta vista todavía. Intenta de nuevo en unos segundos."); return; }
-  try{
-    await artifactCap.publish(buildPublishHtml());
-  }catch(e){
-    if(e && (e.code==="not_writer" || e.code==="not_granted")){
-      isAdmin = false; updateAdminUI(); renderBracket(); renderNews();
-      alert("No tienes permisos para publicar cambios en este sitio.");
-    } else if(e && e.code!=="conflict"){
-      alert("No se pudo publicar el cambio. Inténtalo de nuevo.");
-    }
-  }
+  safeSet("nexus_admin_autosave_v1",{winners,news});
+  const status=qs("#adminStatus");
+  if(status) status.textContent="🔓 Modo administrador · 💾 Guardado automático";
 }
 
 async function initClaude(){
