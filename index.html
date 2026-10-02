@@ -434,10 +434,10 @@ footer strong{color:#eee}
   <div class="overlay" id="newsOverlay">
     <div class="modal">
       <button class="close" data-close="newsOverlay">✕</button>
-      <h3>Nueva noticia</h3>
+      <h3 id="newsModalTitle">Nueva noticia</h3>
       <label>Etiqueta</label><input id="newsTag" placeholder="ANUNCIO">
       <label>Título</label><input id="newsTitle" placeholder="Título de la noticia">
-      <label>Imagen (opcional)</label>
+      <label>Imagen <span id="newsImgHint">(obligatoria al crear)</span></label>
       <input type="file" id="newsImgFile" accept="image/*">
       <img id="newsImgPreview" style="display:none;width:100%;border-radius:8px;margin-top:8px;max-height:180px;object-fit:cover">
       <label>Contenido</label><textarea id="newsBody" placeholder="Detalles..."></textarea>
@@ -680,12 +680,18 @@ function renderBracket(){
 function renderNews(){
   qs("#newsGrid").innerHTML = news.filter(n => n && n.img).map((n,i)=>`
     <article class="news-card">
-      ${isAdmin ? `<button class="del" data-i="${i}" title="Eliminar">✕</button>` : ""}
+      ${isAdmin ? `<div style="position:absolute;right:10px;top:10px;display:flex;gap:6px;z-index:2">
+        <button class="edit-news" data-i="${i}" title="Editar noticia">✎</button>
+        <button class="del" data-i="${i}" title="Eliminar">✕</button>
+      </div>` : ""}
       ${n.img ? `<img class="cover" src="${n.img}" alt="">` : ""}
       <span class="tag">${n.tag}</span><h3>${n.title}</h3><p>${n.body}</p><time>${n.date}</time>
     </article>`).join("");
   qsa(".del").forEach(b=>b.addEventListener("click",()=>{
     news.splice(+b.dataset.i,1); renderNews(); publishChange();
+  }));
+  qsa(".edit-news").forEach(b=>b.addEventListener("click",()=>{
+    openNewsEditor(+b.dataset.i);
   }));
 }
 
@@ -722,7 +728,43 @@ qs("#confirmResetBtn").addEventListener("click",()=>{
   publishChange();
 });
 let pendingNewsImg = null;
-qs("#addNewsBtn").addEventListener("click",()=>qs("#newsOverlay").classList.add("open"));
+let editingNewsIndex = null;
+
+function resetNewsEditor(){
+  editingNewsIndex = null;
+  pendingNewsImg = null;
+  qs("#newsModalTitle").textContent = "Nueva noticia";
+  qs("#saveNews").textContent = "Publicar";
+  qs("#newsImgHint").textContent = "(obligatoria al crear)";
+  qs("#newsTag").value = "";
+  qs("#newsTitle").value = "";
+  qs("#newsBody").value = "";
+  qs("#newsImgFile").value = "";
+  qs("#newsImgPreview").src = "";
+  qs("#newsImgPreview").style.display = "none";
+}
+
+function openNewsEditor(index){
+  const n = news[index];
+  if(!isAdmin || !n) return;
+  editingNewsIndex = index;
+  pendingNewsImg = null;
+  qs("#newsModalTitle").textContent = "Editar noticia";
+  qs("#saveNews").textContent = "Guardar cambios";
+  qs("#newsImgHint").textContent = "(opcional: si no eliges otra, conserva la actual)";
+  qs("#newsTag").value = n.tag || "";
+  qs("#newsTitle").value = n.title || "";
+  qs("#newsBody").value = n.body || "";
+  qs("#newsImgFile").value = "";
+  qs("#newsImgPreview").src = n.img || "";
+  qs("#newsImgPreview").style.display = n.img ? "block" : "none";
+  qs("#newsOverlay").classList.add("open");
+}
+
+qs("#addNewsBtn").addEventListener("click",()=>{
+  resetNewsEditor();
+  qs("#newsOverlay").classList.add("open");
+});
 qs("#newsImgFile").addEventListener("change",(e)=>{
   const file = e.target.files[0];
   if(!file) return;
@@ -736,14 +778,36 @@ qs("#newsImgFile").addEventListener("change",(e)=>{
   reader.readAsDataURL(file);
 });
 qs("#saveNews").addEventListener("click",()=>{
-  const tag=qs("#newsTag").value.trim()||"ANUNCIO", title=qs("#newsTitle").value.trim(), body=qs("#newsBody").value.trim();
-  if(!title||!body||!pendingNewsImg){ alert("La noticia debe tener una imagen."); return; }
-  news.unshift({tag,title,body,img:pendingNewsImg,date:new Date().toLocaleDateString("es-PE",{day:"2-digit",month:"short",year:"numeric"})});
-  qs("#newsTag").value="";qs("#newsTitle").value="";qs("#newsBody").value="";
-  qs("#newsImgFile").value="";
-  qs("#newsImgPreview").style.display="none";
-  pendingNewsImg = null;
+  const tag=qs("#newsTag").value.trim()||"ANUNCIO";
+  const title=qs("#newsTitle").value.trim();
+  const body=qs("#newsBody").value.trim();
+  if(!title||!body){ alert("Completa el título y contenido."); return; }
+
+  if(editingNewsIndex !== null){
+    const current = news[editingNewsIndex];
+    if(!current) return;
+    // Se modifican los datos de la noticia, pero la fecha original se conserva.
+    news[editingNewsIndex] = {
+      ...current,
+      tag,
+      title,
+      body,
+      img: pendingNewsImg || current.img,
+      date: current.date
+    };
+  }else{
+    if(!pendingNewsImg){ alert("La noticia debe tener una imagen."); return; }
+    news.unshift({
+      tag,
+      title,
+      body,
+      img: pendingNewsImg,
+      date:new Date().toLocaleDateString("es-PE",{day:"2-digit",month:"short",year:"numeric"})
+    });
+  }
+
   qs("#newsOverlay").classList.remove("open");
+  resetNewsEditor();
   renderNews();
   publishChange();
 });
