@@ -310,7 +310,7 @@ footer strong{color:#eee}
 .trophy-art>img{position:absolute;left:50%;top:34px;transform:translateX(-50%);width:84%;height:72%;display:block;object-fit:cover;object-position:center;border-radius:12px;mix-blend-mode:screen;opacity:.98;filter:saturate(1.08) contrast(1.05);z-index:1}
 .trophy-art .center-final{left:6%;right:6%;bottom:7%;z-index:5}
 .center-champion{max-width:310px}
-</style>
+.result-win{font-weight:800}.result-loss{font-weight:800;opacity:.8}.result-unknown{font-weight:800;opacity:.6}</style>
 </head>
 <body>
   <header class="topbar">
@@ -353,7 +353,7 @@ footer strong{color:#eee}
       </div>
       <div class="table-wrap">
         <table>
-          <thead><tr><th>Equipo</th><th>PJ</th><th>PG</th><th>PP</th><th>Score</th><th>Win rate</th></tr></thead>
+          <thead><tr><th>Equipo</th><th>Resultado</th><th>PJ</th><th>PG</th><th>PP</th><th>Score</th><th>Win rate</th></tr></thead>
           <tbody id="statsTable"></tbody>
         </table>
       </div>
@@ -609,7 +609,7 @@ function openTeam(i){
 
 function renderStats(filter="all"){
   const rows = TEAMS.filter(t=>filter==="all"||t[0]===filter);
-  qs("#statsTable").innerHTML = rows.map(t=>`<tr><td>${t[0]}</td><td>${t[2]}</td><td>${t[3]}</td><td>${t[4]}</td><td>${t[6] === "?" ? "?" : (+t[6]).toLocaleString("es-PE")}</td><td>${t[10]}</td></tr>`).join("");
+  qs("#statsTable").innerHTML = rows.map(t=>`<tr><td>${t[0]}</td><td class="${t[2]==0?'result-unknown':t[3]>0?'result-win':'result-loss'}">${t[2]==0?'?':t[3]>0?'VICTORIA':'DERROTA'}</td><td>${t[2]}</td><td>${t[3]}</td><td>${t[4]}</td><td>${t[6] === "?" ? "?" : (+t[6]).toLocaleString("es-PE")}</td><td>${t[10]}</td></tr>`).join("");
   const knownRows=rows.filter(t=>t[2] !== "?");
   const teamGames=knownRows.reduce((a,t)=>a+ +t[2],0);
   const games=filter==="all" ? Math.round(teamGames/2) : teamGames;
