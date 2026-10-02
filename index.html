@@ -310,6 +310,9 @@ footer strong{color:#eee}
 .trophy-art>img{position:absolute;left:50%;top:34px;transform:translateX(-50%);width:84%;height:72%;display:block;object-fit:cover;object-position:center;border-radius:12px;mix-blend-mode:screen;opacity:.98;filter:saturate(1.08) contrast(1.05);z-index:1}
 .trophy-art .center-final{left:6%;right:6%;bottom:7%;z-index:5}
 .center-champion{max-width:310px}
+<style>
+.stats-priority-note{display:flex;gap:12px;align-items:center;margin:14px 0;padding:12px 14px;border:1px solid rgba(242,201,0,.35);border-radius:10px;background:#0d120f;color:#d7ddd9;font-size:12px}.stats-priority-note strong{color:var(--yellow);white-space:nowrap}.stats-priority-note span{color:#9da7a3}.result-win{color:var(--yellow);font-weight:900;letter-spacing:.5px}.result-loss{color:#9da7a3;font-weight:800}.result-unknown{color:#9da7a3}@media(max-width:700px){.stats-priority-note{flex-direction:column;align-items:flex-start}}
+</style>
 </style>
 </head>
 <body>
@@ -351,9 +354,10 @@ footer strong{color:#eee}
         <div class="stat-box"><span>Puntaje total</span><strong id="totalScore">0</strong></div>
         <div class="stat-box"><span>Win rate</span><strong id="avgWinrate">0%</strong></div>
       </div>
+      <div class="stats-priority-note"><strong>🏆 Resultado oficial del VS</strong><span>Victoria/Derrota se determina por el resultado registrado en el enfrentamiento. El <b>Score</b> se muestra como dato de rendimiento y no determina por sí solo al ganador.</span></div>
       <div class="table-wrap">
         <table>
-          <thead><tr><th>Equipo</th><th>PJ</th><th>PG</th><th>PP</th><th>Score</th><th>Win rate</th></tr></thead>
+          <thead><tr><th>Equipo</th><th>Resultado</th><th>PJ</th><th>PG</th><th>PP</th><th>Score</th><th>Win rate</th></tr></thead>
           <tbody id="statsTable"></tbody>
         </table>
       </div>
@@ -627,7 +631,7 @@ function openTeam(i){
 
 function renderStats(filter="all"){
   const rows = TEAMS.filter(t=>filter==="all"||t[0]===filter);
-  qs("#statsTable").innerHTML = rows.map(t=>`<tr><td>${t[0]}</td><td>${t[2]}</td><td>${t[3]}</td><td>${t[4]}</td><td>${t[6] === "?" ? "?" : (+t[6]).toLocaleString("es-PE")}</td><td>${t[10]}</td></tr>`).join("");
+  qs("#statsTable").innerHTML = rows.map(t=>`<tr><td>${t[0]}</td><td><b class="${t[3] === "?" ? "result-unknown" : (+t[3] > 0 ? "result-win" : "result-loss")}">${t[3] === "?" ? "?" : (+t[3] > 0 ? "VICTORIA" : "DERROTA")}</b></td><td>${t[2]}</td><td>${t[3]}</td><td>${t[4]}</td><td>${t[6] === "?" ? "?" : (+t[6]).toLocaleString("es-PE")}</td><td>${t[10]}</td></tr>`).join("");
   const knownRows=rows.filter(t=>t[2] !== "?");
   const teamGames=knownRows.reduce((a,t)=>a+ +t[2],0);
   const games=filter==="all" ? Math.round(teamGames/2) : teamGames;
