@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720" role="img" aria-labelledby="t d">
+<title id="t">Torneo Nexus — Resultados y agenda</title><desc id="d">Portada editorial de Torneo Nexus con supervivientes genéricos en una ciudad devastada; sin emblemas de equipos.</desc>
+<defs>
+ <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#101313"/><stop offset=".55" stop-color="#070909"/><stop offset="1" stop-color="#200809"/></linearGradient>
+ <linearGradient id="red" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#610b10"/><stop offset=".5" stop-color="#e01c2a"/><stop offset="1" stop-color="#73090f"/></linearGradient>
+ <linearGradient id="fog" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#87918b" stop-opacity=".28"/><stop offset="1" stop-color="#101313" stop-opacity="0"/></linearGradient>
+ <pattern id="grain" width="31" height="29" patternUnits="userSpaceOnUse"><circle cx="4" cy="7" r="1.2" fill="#fff" opacity=".11"/><circle cx="21" cy="18" r=".8" fill="#f33" opacity=".2"/><path d="M8 25l4-1" stroke="#fff" stroke-opacity=".07"/></pattern>
+ <filter id="glow"><feGaussianBlur stdDeviation="13"/></filter>
+</defs>
+<rect width="1200" height="720" fill="url(#bg)"/>
+<path d="M0 0H1200V18L0 145Z" fill="#1b2020"/><path d="M0 0H1200V10L0 110Z" fill="#3e080c" opacity=".75"/>
+<ellipse cx="460" cy="365" rx="370" ry="255" fill="#b30e18" opacity=".18" filter="url(#glow)"/>
+<g fill="#131919" stroke="#323b3b" stroke-width="2"><path d="M0 470V365H50V330H83V400H111V350H139V286H177V405H206V355H236V315H270V432H303V375H345V330H380V450H409V390H445V350H478V450H512V300H550V390H582V353H613V430H645V320H675V397H713V365H751V450H787V330H827V410H858V365H890V432H923V350H950V470Z"/><path d="M148 286V260H160V286M511 300V276H524V300M640 320V287H652V320M818 330V302H830V330" fill="none"/></g>
+<g fill="#c1c8bd" opacity=".5"><path d="M57 349h7v8h-7zM117 364h7v8h-7zM154 307h8v9h-8zM184 382h7v9h-7zM247 337h7v8h-7zM322 396h8v9h-8zM363 350h7v8h-7zM428 410h7v8h-7zM522 323h7v8h-7zM565 368h7v8h-7zM650 344h7v8h-7zM696 386h7v8h-7zM764 393h7v8h-7zM831 349h7v8h-7zM885 389h7v8h-7z"/></g>
+<rect y="390" width="950" height="245" fill="url(#fog)"/><path d="M705 169L625 475L870 475Z" fill="#e4e1c4" opacity=".08"/>
+<g transform="translate(695 150)" fill="#111616" stroke="#65706a" stroke-width="2"><path d="M-45 3Q-43-16-20-20L16-20Q31-18 37-2L54 7L47 20L13 24L-8 17L-39 17Z"/><path d="M-15-20L-7-34H15L24-20M-39 2L-58-4M-58-4L-83-7M43 7L72-2L90 5L67 14L46 14" fill="none"/><path d="M-4-36H6M1-46V-26M-24-39H27" fill="none" stroke="#a5aaa0"/></g>
+<g fill="#080b0b" stroke="#313b39" stroke-width="3">
+<path d="M220 620L225 526L208 482Q202 457 217 441Q233 426 248 442Q263 456 255 481L274 518L287 620Z"/><path d="M209 474L183 510L179 564L193 567L211 525L230 496Z"/><path d="M255 485L282 511L296 559L282 566L260 527L246 506Z"/>
+<path d="M341 620L346 532L333 490Q325 463 344 443Q361 426 377 447Q390 468 379 491L400 525L406 620Z"/><path d="M339 482L310 510L306 548L321 552L344 517Z"/><path d="M380 489L406 510L416 554L402 560L382 529Z"/>
+<path d="M477 622L482 511L463 458Q453 429 475 405Q497 382 519 406Q537 429 520 462L546 510L558 622Z"/><path d="M466 454L433 482L421 536L437 543L468 502Z"/><path d="M523 462L556 484L575 535L559 544L531 505Z"/>
+<path d="M617 620L624 529L611 489Q603 462 622 442Q641 424 658 445Q672 464 660 490L683 526L690 620Z"/><path d="M615 481L590 509L587 552L603 556L624 519Z"/><path d="M660 486L685 509L699 550L684 558L662 521Z"/></g>
+<g fill="#252e2c"><path d="M218 449Q234 430 250 450L255 466H213Z"/><path d="M342 450Q360 430 377 451L381 468H339Z"/><path d="M471 412Q495 389 518 413L522 433H467Z"/><path d="M620 450Q639 430 658 453L663 470H615Z"/></g>
+<path d="M20 22H1180V698H20Z" fill="none" stroke="#7a151c" stroke-width="3"/><path d="M20 24H1180V32H20Z" fill="url(#red)"/><path d="M20 670H1180V698H20Z" fill="#050707"/><path d="M35 0L245 0L0 220V160Z" fill="#ba101b" opacity=".42"/>
+<rect width="1200" height="720" fill="url(#grain)" opacity=".66"/>
+<path d="M35 35H520L465 105H35Z" fill="url(#red)"/><text x="57" y="80" font-family="Arial,sans-serif" font-size="27" font-weight="900" letter-spacing="4" fill="#fff">NOTICIAS NEXUS</text>
+<text x="565" y="87" font-family="Arial,sans-serif" font-size="58" font-weight="900" letter-spacing="-1.5" fill="#fff">TORNEO</text><text x="558" y="151" font-family="Arial,sans-serif" font-size="70" font-weight="900" letter-spacing="-2" fill="#e31b2b">NEXUS</text><path d="M555 165L890 165" stroke="#e31b2b" stroke-width="5"/>
+<text x="58" y="553" font-family="Arial,sans-serif" font-size="26" font-weight="900" letter-spacing="3" fill="#f1eeee">RESULTADOS Y AGENDA</text><text x="58" y="601" font-family="Arial,sans-serif" font-size="38" font-weight="900" fill="#fff">ARASHI SE IMPONE</text><text x="58" y="643" font-family="Arial,sans-serif" font-size="29" font-weight="800" fill="#e92a36">A PILINES INSANOS</text>
+<text x="905" y="554" font-family="Arial,sans-serif" font-size="21" font-weight="900" text-anchor="middle" fill="#e8e8e8">4 EQUIPOS</text><text x="905" y="583" font-family="Arial,sans-serif" font-size="21" font-weight="900" text-anchor="middle" fill="#e8e8e8">1 OBJETIVO</text><text x="905" y="619" font-family="Arial,sans-serif" font-size="29" font-weight="900" text-anchor="middle" fill="#ef2633">LA VICTORIA</text>
+<path d="M58 676H645" stroke="#5e171b" stroke-width="2"/><text x="58" y="696" font-family="Arial,sans-serif" font-size="15" font-weight="700" letter-spacing="2" fill="#bbb">TORNEO NEXUS FIEE · OCTUBRE 2026</text>
+</svg>
