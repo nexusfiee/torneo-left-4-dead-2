@@ -521,17 +521,27 @@ const ADMIN_PASSWORD = "nexusfiee2026";
 let isAdmin = false;
 let artifactCap = null;
 
+function normalizeNewsImages(items){
+  return items.filter(n => n && n.img).map(n => {
+    if(n.img !== "noticias/periodico-27-sep-2026.jpg") return n;
+    const title = String(n.title || "").toUpperCase();
+    const img = title.includes("ARASHI SE IMPONE") ? "noticias/torneo-nexus-resultados.svg" :
+      title.includes("EMPEZÓ EL TORNEO NEXUS FIEE") ? "noticias/torneo-nexus-portada.svg" : n.img;
+    return img === n.img ? n : {...n, img};
+  });
+}
+
 (function seedFromEmbeddedData(){
   const el = document.getElementById("app-data");
   if(!el) return;
   try{
     const seed = JSON.parse(el.textContent || "{}");
     if(seed.winners) winners = seed.winners;
-    if(seed.news) news = seed.news.filter(n => n && n.img);
+    if(seed.news) news = normalizeNewsImages(seed.news);
     const localDraft = safeGet("nexus_admin_autosave_v2", null);
     if(localDraft){
       if(localDraft.winners && typeof localDraft.winners === "object") winners = localDraft.winners;
-      if(Array.isArray(localDraft.news)) news = localDraft.news.filter(n => n && n.img);
+      if(Array.isArray(localDraft.news)) news = normalizeNewsImages(localDraft.news);
     }
   }catch(e){}
 })();
