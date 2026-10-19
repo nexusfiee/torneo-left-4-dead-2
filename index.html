@@ -540,7 +540,7 @@ function normalizeNewsImages(items){
     if(seed.news) news = normalizeNewsImages(seed.news);
     const localDraft = safeGet("nexus_admin_autosave_v2", null);
     if(localDraft){
-      if(localDraft.winners && typeof localDraft.winners === "object") winners = localDraft.winners;
+      if(localDraft.winners && typeof localDraft.winners === "object") winners = {...localDraft.winners, ...(seed.winners || {})};
       if(Array.isArray(localDraft.news)) news = normalizeNewsImages(localDraft.news);
     }
   }catch(e){}
